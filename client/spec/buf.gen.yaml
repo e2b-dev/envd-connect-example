@@ -1,0 +1,14 @@
+version: v1
+plugins:
+  - plugin: go
+    out: ../generated
+    opt: paths=source_relative
+  - plugin: connect-go
+    out: ../generated
+    opt: paths=source_relative
+
+managed:
+  enabled: true
+  optimize_for: SPEED
+  go_package_prefix:
+    default: e2b.dev/groq/client/generated

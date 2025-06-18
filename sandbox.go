@@ -65,3 +65,35 @@ func CreateSandbox(templateID string, timeout int) (SandboxResponse, error) {
 
 	return result, nil
 }
+
+func KillSandbox(sandboxID string) error {
+	apiKey := os.Getenv("E2B_API_KEY")
+	if apiKey == "" {
+		return fmt.Errorf("E2B_API_KEY environment variable is not set")
+	}
+
+	url := fmt.Sprintf("https://api.e2b.dev/sandboxes/%s", sandboxID)
+
+	req, err := http.NewRequest("DELETE", url, nil)
+	if err != nil {
+		return fmt.Errorf("failed to create request: %v", err)
+	}
+
+	req.Header.Set("X-API-Key", apiKey)
+
+	client := &http.Client{
+		Timeout: 30 * time.Second,
+	}
+
+	resp, err := client.Do(req)
+	if err != nil {
+		return fmt.Errorf("failed to send request: %v", err)
+	}
+	defer resp.Body.Close()
+
+	if resp.StatusCode != http.StatusOK && resp.StatusCode != http.StatusNoContent {
+		return fmt.Errorf("request failed with status: %d", resp.StatusCode)
+	}
+
+	return nil
+}

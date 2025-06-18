@@ -15,13 +15,15 @@ type SandboxResponse struct {
 	EnvdAccessToken *string `json:"envdAccessToken,omitempty"`
 }
 
+const apiBaseURL = "https://api.e2b.dev/sandboxes"
+
 func CreateSandbox(templateID string, timeout int) (SandboxResponse, error) {
 	apiKey := os.Getenv("E2B_API_KEY")
 	if apiKey == "" {
 		return SandboxResponse{}, fmt.Errorf("E2B_API_KEY environment variable is not set")
 	}
 
-	url := "https://api.e2b.dev/sandboxes"
+	url := apiBaseURL
 	payload := map[string]interface{}{
 		"templateID": templateID,
 		"timeout":    timeout,
@@ -72,7 +74,7 @@ func KillSandbox(sandboxID string) error {
 		return fmt.Errorf("E2B_API_KEY environment variable is not set")
 	}
 
-	url := fmt.Sprintf("https://api.e2b.dev/sandboxes/%s", sandboxID)
+	url := fmt.Sprintf("%s/%s", apiBaseURL, sandboxID)
 
 	req, err := http.NewRequest("DELETE", url, nil)
 	if err != nil {

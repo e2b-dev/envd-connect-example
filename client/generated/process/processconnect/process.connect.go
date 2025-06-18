@@ -7,7 +7,7 @@ package processconnect
 import (
 	connect "connectrpc.com/connect"
 	context "context"
-	process "e2b.dev/groq/client/generated/process"
+	process "e2b.dev/envd-connect-example/client/generated/process"
 	errors "errors"
 	http "net/http"
 	strings "strings"

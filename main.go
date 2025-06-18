@@ -9,8 +9,8 @@ import (
 	"time"
 
 	"connectrpc.com/connect"
-	"e2b.dev/groq/client/generated/process"
-	"e2b.dev/groq/client/generated/process/processconnect"
+	"e2b.dev/envd-connect-example/client/generated/process"
+	"e2b.dev/envd-connect-example/client/generated/process/processconnect"
 )
 
 const (

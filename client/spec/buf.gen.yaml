@@ -11,4 +11,4 @@ managed:
   enabled: true
   optimize_for: SPEED
   go_package_prefix:
-    default: e2b.dev/groq/client/generated
+    default: e2b.dev/envd-connect-example/client/generated

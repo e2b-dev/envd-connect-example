@@ -2,22 +2,63 @@ package main
 
 import (
 	"context"
+	"encoding/base64"
+	"fmt"
 	"log"
 	"net/http"
+	"time"
 
 	"connectrpc.com/connect"
 	"e2b.dev/groq/client/generated/process"
 	"e2b.dev/groq/client/generated/process/processconnect"
 )
 
-func main() {
-	// Create HTTP client
-	httpClient := &http.Client{}
+const (
+	envdPort = 49983
+)
 
-	// Create process client
+func SetSandboxHeader(header http.Header, sandboxID string) {
+	host := fmt.Sprintf("%d-%s-00000000.e2b.app", envdPort, sandboxID)
+	header.Set("Host", host)
+}
+
+func SetUserHeader(header http.Header, user string) {
+	userString := fmt.Sprintf("%s:", user)
+	userBase64 := base64.StdEncoding.EncodeToString([]byte(userString))
+	basic := fmt.Sprintf("Basic %s", userBase64)
+	header.Set("Authorization", basic)
+}
+
+func main() {
+	sandbox, err := CreateSandbox("base", 10)
+	if err != nil {
+		log.Fatalf("Failed to create sandbox: %v", err)
+	}
+
+	fmt.Println(sandbox)
+
+	// Create HTTP client with timeout
+	httpClient := &http.Client{
+		Timeout: 30 * time.Second, // Adjust timeout as needed
+	}
+
+	// Create process client with headers
 	client := processconnect.NewProcessClient(
 		httpClient,
-		"https://49983-4ibr3mm98t7io3xw86wwiw-1df5cfa7.e2b.dev",
+		fmt.Sprintf("https://%d-%s-%s.e2b.app", envdPort, sandbox.SandboxID, sandbox.ClientID),
+		connect.WithInterceptors(
+			connect.UnaryInterceptorFunc(func(next connect.UnaryFunc) connect.UnaryFunc {
+				return func(ctx context.Context, req connect.AnyRequest) (connect.AnyResponse, error) {
+					// Set the sandbox header
+					SetSandboxHeader(req.Header(), sandbox.SandboxID)
+
+					// Set the user header for authentication
+					SetUserHeader(req.Header(), "user")
+
+					return next(ctx, req)
+				}
+			}),
+		),
 	)
 
 	// Create context

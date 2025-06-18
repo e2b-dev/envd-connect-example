@@ -7,7 +7,7 @@ package filesystemconnect
 import (
 	connect "connectrpc.com/connect"
 	context "context"
-	filesystem "e2b.dev/envd-connect-example/client/generated/filesystem"
+	filesystem "e2b-dev/envd-connect-example/client/generated/filesystem"
 	errors "errors"
 	http "net/http"
 	strings "strings"

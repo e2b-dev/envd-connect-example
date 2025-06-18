@@ -1258,7 +1258,7 @@ const file_filesystem_filesystem_proto_rawDesc = "" +
 	"\rCreateWatcher\x12 .filesystem.CreateWatcherRequest\x1a!.filesystem.CreateWatcherResponse\x12]\n" +
 	"\x10GetWatcherEvents\x12#.filesystem.GetWatcherEventsRequest\x1a$.filesystem.GetWatcherEventsResponse\x12T\n" +
 	"\rRemoveWatcher\x12 .filesystem.RemoveWatcherRequest\x1a!.filesystem.RemoveWatcherResponseB\xa3\x01\n" +
-	"\x0ecom.filesystemB\x0fFilesystemProtoP\x01Z8e2b.dev/envd-connect-example/client/generated/filesystem\xa2\x02\x03FXX\xaa\x02\n" +
+	"\x0ecom.filesystemB\x0fFilesystemProtoP\x01Z8e2b-dev/envd-connect-example/client/generated/filesystem\xa2\x02\x03FXX\xaa\x02\n" +
 	"Filesystem\xca\x02\n" +
 	"Filesystem\xe2\x02\x16Filesystem\\GPBMetadata\xea\x02\n" +
 	"Filesystemb\x06proto3"

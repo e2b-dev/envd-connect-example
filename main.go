@@ -8,9 +8,10 @@ import (
 	"net/http"
 	"time"
 
+	"e2b-dev/envd-connect-example/client/generated/process"
+	"e2b-dev/envd-connect-example/client/generated/process/processconnect"
+
 	"connectrpc.com/connect"
-	"e2b.dev/envd-connect-example/client/generated/process"
-	"e2b.dev/envd-connect-example/client/generated/process/processconnect"
 )
 
 const (

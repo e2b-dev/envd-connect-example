@@ -1,4 +1,4 @@
-module e2b.dev/envd-connect-example
+module e2b-dev/envd-connect-example
 
 go 1.24.3
 
